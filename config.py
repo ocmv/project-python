@@ -1,9 +1,9 @@
 class Config:
-	pass
+	SECRET_KEY = 'A487poi9'
 
 class DevelopmentConfig(Config):
 	DEBUG = True
-
+	SQLALCHEMY_DATABASE_URI = 'mysql://root:@localhost:3306/project-python'
 
 config = {
 	'development': DevelopmentConfig,

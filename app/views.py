@@ -17,6 +17,6 @@ def index():
 def login():
 	form = LoginForm(request.form)
 
-	if request.method == 'POST':
+	if request.method == 'POST' and form.validate():
 		print("nueva sesion creada")
 	return render_template('auth/login.html', title='login', form=form)
