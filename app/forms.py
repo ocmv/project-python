@@ -29,6 +29,6 @@ class RegisterForm(Form):
 
 	confirm_password = PasswordField('Confirme contraseña')
 
-	accept = BooleanField('Acepto terminosy condiciones', [
+	accept = BooleanField('', [
 		validators.DataRequired()
 	])

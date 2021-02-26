@@ -10,4 +10,12 @@ class User(db.Model):
 	email = db.Column(db.String(100), unique=True, nullable=False)
 	created_at = db.Column(db.DateTime, default=datetime.datetime.now())
 
+	@classmethod
+	def create_element(cls, username, password, email):
+		user = User(username=username, password=password, email=email)
+		db.session.add(user)
+		db.session.commit()
+
+		return user
+
 	
