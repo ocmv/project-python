@@ -19,6 +19,9 @@ def create_app(config):
 	csfr.init_app(app)
 	bootstrap.init_app(app)
 	login_manager.init_app(app)
+	login_manager.login_view = '.login'
+	login_manager.login_message = 'Es necesario iniciar sesion'
+
 	app.register_blueprint(page)
 
 	with app.app_context():
