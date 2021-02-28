@@ -63,7 +63,8 @@ def register():
 @page.route('/tasks')
 @login_required
 def tasks():
-	return render_template('task/list.html', title='Tareas')
+	tasks = current_user.tasks
+	return render_template('task/list.html', title='Tareas', tasks=tasks)
 
 @page.route('/tasks/new', methods=['GET', 'POST'])
 @login_required

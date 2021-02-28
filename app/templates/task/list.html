@@ -2,4 +2,29 @@
 
 	{%block container%}
 		<h2>Listados de tareas</h2>
+		<table class="table">
+			<thead>
+				<tr>
+					<th scope="col">Titulo</th>
+					<th scope="col">Descripcion</th>
+					<th scope="col">Accion</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for task in tasks %}
+				<tr>
+					<td>
+						{{task.title}}
+					</td>
+					<td>
+						{{task.little_description}}
+					</td>
+					<td>
+						<a href="#" class="btn btn-primary">Editar</a>
+						<a href="#" class="btn btn-danger">Eliminar</a>
+					</td>
+				</tr>
+				{% endfor %}
+			</tbody>
+		</table>
 	{%endblock%}

@@ -56,6 +56,12 @@ class Task(db.Model):
 	user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
 	create_at = db.Column(db.DateTime, default=datetime.datetime.now())
 
+	@property
+	def little_description(self):
+		if len(self.description) > 20:
+			return self.description[0:19] + '...'
+		return self.description
+
 	@classmethod
 	def create_element(cls, title, description, user_id):
 		task = Task(title=title, description=description, user_id=user_id)
