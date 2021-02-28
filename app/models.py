@@ -68,4 +68,29 @@ class Task(db.Model):
 		db.session.add(task)
 		db.session.commit()
 		return task
+
+	@classmethod
+	def update_element(cls, id, title, description):
+		task = Task.get_by_id(id)
+		if task is None:
+			return False
+		task.title = title
+		task.description = description
+		db.session.add(task)
+		db.session.commit()
+		return task
+
+	@classmethod
+	def delete_element(cls, id):
+		task = Task.get_by_id(id)
+		if task is None:
+			return False
+		db.session.delete(task)
+		db.session.commit()
+		return True
+
+	@classmethod
+	def get_by_id(cls, id):
+		return Task.query.filter_by(id=id).first()
+
 	
