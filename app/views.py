@@ -104,3 +104,10 @@ def delete_task(task_id):
 	if Task.delete_element(task.id):
 		flash(TASK_DELETE)
 	return redirect(url_for('.tasks'))
+
+@page.route('/tasks/show/<int:task_id>')
+def get_task(task_id):
+	task = Task.query.get_or_404(task_id)
+	if task.user_id != current_user.id:
+		abort(404)
+	return render_template('task/show.html', title='Tarea', task=task)
