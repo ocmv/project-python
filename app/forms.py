@@ -1,6 +1,6 @@
 from wtforms import Form,  HiddenField
 from wtforms import validators
-from wtforms import StringField, PasswordField, BooleanField
+from wtforms import StringField, PasswordField, BooleanField, TextAreaField
 from wtforms.fields.html5 import EmailField
 from .models import User
 #validacion nombre usuario no permitido
@@ -64,3 +64,13 @@ class RegisterForm(Form):
 			self.password.errors.append('El password es demasiado corto')
 			return False
 		return True
+
+class TaskForm(Form):
+	title = StringField('Titulo',[
+		validators.length(min=6, max=50),
+		validators.DataRequired(message='El titulo es requerido'),
+	])
+
+	description = TextAreaField('Descripcion',[
+		validators.DataRequired(message='La descripcion es requerida'),
+	], render_kw={'rows': 5})

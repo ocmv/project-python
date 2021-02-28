@@ -1,0 +1,20 @@
+{%extends 'layout.html'%}
+{%from 'helpers/_forms.html' import render_field%}
+
+{%block container%}
+<div class=" d-flex justify-content-center">
+	<div class="flex-column">
+		<h3 class="text-center">Nueva Tarea</h3>
+		<form action="{{url_for('.new_task')}}" method="post">
+			<input type="hidden" name="csrf_token" value="{{csrf_token()}}">
+			<div class="form-group">
+				{{render_field(form.title,class='class-control',placeholder='Titulo')}}
+			</div>
+			<div class="form-group">
+				{{render_field(form.description,class='class-control',placeholder='Crear Nueva Tarea')}}
+			</div>
+			<button type="submit" class="btn btn-primary">Crear</button>
+		</form>
+	</div>
+</div>
+{%endblock%}

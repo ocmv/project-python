@@ -12,6 +12,7 @@ class User(db.Model, UserMixin):
 	encrypted_password = db.Column(db.String(94), nullable=False)
 	email = db.Column(db.String(100), unique=True, nullable=False)
 	created_at = db.Column(db.DateTime, default=datetime.datetime.now())
+	tasks = db.relationship('Task')
 
 	def verify_password(self, password):
 		return check_password_hash(self.encrypted_password, password)
@@ -46,5 +47,19 @@ class User(db.Model, UserMixin):
 	def get_by_id(cls, id):
 		return User.query.filter_by(id=id).first()
 
+class Task(db.Model):
+	__tablename__ = 'tasks'
 
+	id = db.Column(db.Integer, primary_key=True)
+	title = db.Column(db.String(50))
+	description = db.Column(db.Text())
+	user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+	create_at = db.Column(db.DateTime, default=datetime.datetime.now())
+
+	@classmethod
+	def create_element(cls, title, description, user_id):
+		task = Task(title=title, description=description, user_id=user_id)
+		db.session.add(task)
+		db.session.commit()
+		return task
 	

@@ -2,8 +2,8 @@ from flask import Blueprint
 from flask import render_template, request, flash, redirect, url_for
 
 from flask_login import login_user, logout_user, login_required, current_user
-from .forms import LoginForm, RegisterForm
-from .models import User
+from .forms import LoginForm, RegisterForm, TaskForm
+from .models import User, Task
 from . import login_manager
 from .consts import *
 page = Blueprint('page', __name__)
@@ -64,3 +64,14 @@ def register():
 @login_required
 def tasks():
 	return render_template('task/list.html', title='Tareas')
+
+@page.route('/tasks/new', methods=['GET', 'POST'])
+@login_required
+def new_task():
+	form = TaskForm(request.form)
+	if request.method == 'POST':
+		if form.validate():
+			task = Task.create_element(form.title.data, form.description.data, current_user.id)
+			if task:
+				flash(TASK_CREATED)
+	return render_template('task/new.html',title='Nueva Tarea', form=form)
