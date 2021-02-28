@@ -1,0 +1,5 @@
+LOGIN_REQUIRED = 'Es necesario iniciar sesion'
+USER_CREATED = 'Usuario creado'
+LOGOUT = 'Cerraste sesion'
+LOGIN = 'Usuario autenticado'
+ERROR_USER_PASSWORD = 'Usuario o password incorrectos'

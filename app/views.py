@@ -5,6 +5,7 @@ from flask_login import login_user, logout_user, login_required, current_user
 from .forms import LoginForm, RegisterForm
 from .models import User
 from . import login_manager
+from .consts import *
 page = Blueprint('page', __name__)
 
 @login_manager.user_loader
@@ -22,7 +23,7 @@ def index():
 @page.route('/logout')
 def logout():
 	logout_user()
-	flash('Cerraste sesion exitosamente')
+	flash(LOGOUT)
 	return redirect(url_for('.login'))
 
 @page.route('/login', methods=['GET','POST'])
@@ -37,10 +38,10 @@ def login():
 		user = User.get_by_username(form.username.data)
 		if user and user.verify_password(form.password.data):
 			login_user(user)
-			flash('Usuario autenticado exitosamente')
+			flash(LOGIN)
 			return redirect(url_for('.tasks'))
 		else:
-			flash('Usuario o password incorrectos','error')
+			flash(ERROR_USER_PASSWORD,'error')
 	return render_template('auth/login.html', title='login', form=form)
 
 @page.route('/register', methods=['GET','POST'])
@@ -53,7 +54,7 @@ def register():
 	if request.method == 'POST':
 		if form.validate():
 			user = User.create_element(form.username.data, form.password.data, form.email.data)
-			flash('Usuario registrado exitosamente')
+			flash(USER_CREATED)
 			login_user(user)
 			return redirect(url_for('.tasks'))
 	
