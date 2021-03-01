@@ -13,10 +13,10 @@
 	<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
 		<div class="navbar-nav">
 			{% if current_user.is_authenticated %}
-				<a class="nav-link active" href="/index">{{ current_user.username }}</a>
-				<a class="nav-link active" href="{{url_for('.logout')}}">Logout</a>
-				<a class="nav-link active" href="{{url_for('.tasks')}}">Tareas</a>
-				<a class="nav-link active" href="{{url_for('.new_task')}}">Nueva Tarea</a>
+				<a class="nav-link " href="/index">{{ current_user.username }}</a>
+				<a class="nav-link " href="{{url_for('.logout')}}">Logout</a>
+				<a class="nav-link {% if active == 'tasks' %} active {% endif %}" href="{{url_for('.tasks')}}">Tareas</a>
+				<a class="nav-link {% if active == 'new_task' %} active {% endif %}" href="{{url_for('.new_task')}}">Nueva Tarea</a>
 			{% else %}
 				<a class="nav-link active" href="{{url_for('.register')}}">Registrarme</a>
 				<a class="nav-link active" href="{{url_for('.login')}}">Login</a>

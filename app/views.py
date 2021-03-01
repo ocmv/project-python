@@ -67,7 +67,7 @@ def register():
 def tasks(page=1, per_page=2):
 	pagination = current_user.tasks.paginate(page, per_page=per_page)
 	tasks = pagination.items
-	return render_template('task/list.html', title='Tareas', tasks=tasks, pagination=pagination, page=page)
+	return render_template('task/list.html', title='Tareas', tasks=tasks, pagination=pagination, page=page, active='tasks')
 
 @page.route('/tasks/new', methods=['GET', 'POST'])
 @login_required
@@ -78,7 +78,7 @@ def new_task():
 			task = Task.create_element(form.title.data, form.description.data, current_user.id)
 			if task:
 				flash(TASK_CREATED)
-	return render_template('task/new.html',title='Nueva Tarea', form=form)
+	return render_template('task/new.html',title='Nueva Tarea', form=form,  active='new_task')
 
 @page.route('/tasks/edit/<int:task_id>', methods=['GET', 'POST'])
 @login_required
@@ -93,7 +93,7 @@ def edit_task(task_id):
 		if task:
 			flash(TASK_UPDATED)
 	
-	return render_template('task/edit.html',title='Editar Tarea', form=form)
+	return render_template('task/edit.html',title='Editar Tarea', form=form,  active='edit_tasks')
 
 @page.route('/tasks/delete/<int:task_id>')
 @login_required
@@ -110,4 +110,4 @@ def get_task(task_id):
 	task = Task.query.get_or_404(task_id)
 	if task.user_id != current_user.id:
 		abort(404)
-	return render_template('task/show.html', title='Tarea', task=task)
+	return render_template('task/show.html', title='Tarea', task=task,  active='get_tasks')
